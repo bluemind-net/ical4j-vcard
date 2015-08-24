@@ -224,4 +224,15 @@
 		</plugins>
 	</reporting>
 
+	<distributionManagement>
+		<repository>
+			<id>bm_releases</id>
+			<url>http://forge.blue-mind.net/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>bm_snapshots</id>
+			<url>http://forge.blue-mind.net/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 </project>
