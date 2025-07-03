@@ -37,6 +37,9 @@ import net.fortuna.ical4j.vcard.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -62,6 +65,15 @@ public final class Uid extends Property {
         this.uri = uri;
     }
 
+
+    /**
+     * @param uid a uid definition
+     */
+    public Uid(String uid) throws URISyntaxException, UnsupportedEncodingException {
+        super(Id.UID);
+        this.uri = resolve(uid);
+    }
+
     /**
      * Factory constructor.
      *
@@ -69,17 +81,18 @@ public final class Uid extends Property {
      * @param value  string representation of a property value
      * @throws URISyntaxException where the specified value is not a valid URI
      */
-    public Uid(List<Parameter> params, String value) throws URISyntaxException {
+    public Uid(List<Parameter> params, String value) throws URISyntaxException, UnsupportedEncodingException {
         super(Id.UID, params);
         this.uri = resolve(value);
     }
 
-    private URI resolve(String value) throws URISyntaxException {
+    private URI resolve(String value) throws URISyntaxException, UnsupportedEncodingException {
         try {
-            return new URI(value);
+            return new URI(URLEncoder.encode(value, "UTF8"));
         } catch (URISyntaxException e) {
             if (value.contains("\\,")) {
-                return new URI(value.substring(value.lastIndexOf("\\,") + 2));
+                String substringValue = value.substring(value.lastIndexOf("\\,") + 2);
+                return new URI(URLEncoder.encode(substringValue, "UTF8"));
             } else {
                 throw e;
             }
@@ -98,7 +111,11 @@ public final class Uid extends Property {
      */
     @Override
     public String getValue() {
-        return Strings.valueOf(uri);
+        try {
+            return URLDecoder.decode(uri.getPath(), "UTF8");
+        } catch (UnsupportedEncodingException e) {
+            return uri.getPath();
+        }
     }
 
     /**
@@ -118,14 +135,14 @@ public final class Uid extends Property {
         /**
          * {@inheritDoc}
          */
-        public Uid createProperty(final List<Parameter> params, final String value) throws URISyntaxException {
+        public Uid createProperty(final List<Parameter> params, final String value) throws URISyntaxException, UnsupportedEncodingException {
             return new Uid(params, value);
         }
 
         /**
          * {@inheritDoc}
          */
-        public Uid createProperty(final Group group, final List<Parameter> params, final String value) {
+        public Uid createProperty(final Group group, final List<Parameter> params, final String value) throws UnsupportedEncodingException {
             // TODO Auto-generated method stub
             return null;
         }

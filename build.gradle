@@ -73,7 +73,7 @@ scmVersion {
 
 group = 'org.mnode.ical4j'
 description = 'Support for the vCard specification'
-version = '1.0.9'
+version = '1.0.10'
 
 ext {
     isReleaseVersion = !version.endsWith("SNAPSHOT")

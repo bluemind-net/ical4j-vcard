@@ -223,7 +223,7 @@ public final class VCardBuilder {
      * @throws URISyntaxException 
      * @throws DecoderException 
      */
-    private Property parseProperty(final String line) throws URISyntaxException, ParseException, DecoderException {
+    private Property parseProperty(final String line) throws URISyntaxException, UnsupportedEncodingException, ParseException, DecoderException {
         Property property = null;
         Matcher matcher = PROPERTY_NAME_PATTERN.matcher(line);
         if (matcher.find()) {

@@ -38,6 +38,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -76,14 +77,14 @@ public class PropertyFactoryTest {
      * @throws DecoderException
      */
     @Test
-    public void testCreateProperty() throws URISyntaxException, ParseException, DecoderException {
+    public void testCreateProperty() throws URISyntaxException, ParseException, DecoderException, UnsupportedEncodingException {
         Property property = factory.createProperty(new ArrayList<Parameter>(), value);
         assertEquals(extendedName, property.extendedName);
         assertEquals(value, property.getValue());
     }
 
     @Test
-    public void testCreateGroupProperty() throws URISyntaxException, ParseException, DecoderException {
+    public void testCreateGroupProperty() throws URISyntaxException, ParseException, DecoderException, UnsupportedEncodingException {
         Property property = factory.createProperty(group, new ArrayList<Parameter>(), value);
         assertEquals(group, property.getGroup());
         assertEquals(extendedName, property.extendedName);
