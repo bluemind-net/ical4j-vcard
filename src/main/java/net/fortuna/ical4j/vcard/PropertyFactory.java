@@ -34,6 +34,7 @@ package net.fortuna.ical4j.vcard;
 import org.apache.commons.codec.DecoderException;
 
 import java.net.URISyntaxException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public interface PropertyFactory<T extends Property> {
      * @throws ParseException     where an invalid date string is specified in the property value
      * @throws DecoderException   where an invalid encoded value is specified in the property value
      */
-    T createProperty(List<Parameter> params, String value) throws URISyntaxException, ParseException, DecoderException;
+    T createProperty(List<Parameter> params, String value) throws URISyntaxException, UnsupportedEncodingException, ParseException, DecoderException;
 
     /**
      * @param group  the property group
@@ -66,7 +67,7 @@ public interface PropertyFactory<T extends Property> {
      * @throws ParseException     where an invalid date string is specified in the property value
      * @throws DecoderException   where an invalid encoded value is specified in the property value
      */
-    T createProperty(Group group, List<Parameter> params, String value) throws URISyntaxException,
+    T createProperty(Group group, List<Parameter> params, String value) throws URISyntaxException, UnsupportedEncodingException,
             ParseException, DecoderException;
 
     boolean supports(String id);
