@@ -38,6 +38,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.io.UnsupportedEncodingException;
 
 import net.fortuna.ical4j.vcard.property.Org;
 import net.fortuna.ical4j.vcard.property.Version;
@@ -82,7 +83,7 @@ public class PropertyFactoryRegistryTest {
      * @throws DecoderException 
      */
     @Test
-    public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException, DecoderException {
+    public void testGetFactoryCreateProperty() throws URISyntaxException, ParseException, DecoderException, UnsupportedEncodingException {
         PropertyFactory<? extends Property> factory = registry.getFactory(propertyName);
         if (group != null) {
             assertEquals(expectedProperty, factory.createProperty(group, new ArrayList<Parameter>(), propertyValue));
